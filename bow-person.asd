@@ -11,4 +11,11 @@
   :serial t
   :components ((:module "src"
                 :serial t
-                :components ((:file "bow-person")))))
+                :components ((:module "client"
+                              :serial t
+                              :components ((:file "client")))
+                             (:module "server"
+                              :serial t
+                              :components ((:file "server")
+                                           (:file "routes")))
+                             (:file "bow-person")))))

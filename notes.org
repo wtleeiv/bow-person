@@ -1,0 +1,13 @@
+* use
+** WebSockets
+*** tcp (ordered) connection
+** FullScreen API
+** PointerLock API
+
+* maybe later
+** netcode.io 
+*** https://github.com/networkprotocol/netcode.io
+*** https://new.gafferongames.com/post/why_cant_i_send_udp_packets_from_a_browser/
+*** cffi c implementation => use & make available
+** Gamepad API
+** Screen Orientation API

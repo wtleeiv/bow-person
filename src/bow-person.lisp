@@ -1,17 +1,13 @@
 (defpackage #:bow-person
   (:use #:cl)
-  (:export #:*app*
-           #:start))
+  (:export #:start
+           #:stop))
 (in-package #:bow-person)
 
-(defvar *app* (make-instance 'ningle:<app>))
-
-(defun homepage (params)
-  (declare (ignorable params))
-  "Hello from the internetses")
-
-(setf (ningle:route *app* "/")
-      #'homepage)
-
-(defun start ()
-  (clack:clackup *app*))
+(defun start (&key (server :hunchentoot)
+                (port 5000)
+                (debug t)
+                silent)
+  (clack:clackup bow-person.server:*app* server port debug silent))
+(defun stop()
+  (clack:stop *app*))
