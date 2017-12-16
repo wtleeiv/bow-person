@@ -1,9 +1,15 @@
 (defpackage #:bow-person.server.routes
-  (:use #:cl))
+  (:use #:cl)
+  (:import-from #:ningle
+                #:route)
+  (:import-from #:bow-person.server
+                #:*app*)
+  (:import-from #:bow-person.client
+                #:homepage))
 (in-package #:bow-person.server.routes)
 
-(setf (ningle:route bow-person.server:*app* "/")
-      #'bow-person.client:homepage)
+(setf (route *app* "/")
+      #'homepage)
 ;;; test forms
 ;; (lambda (parms)
 ;;   "hello")
