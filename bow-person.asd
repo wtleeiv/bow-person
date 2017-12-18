@@ -7,13 +7,15 @@
   :depends-on (#:clack
                #:ningle
                #:cl-who
+               #:css-lite
                #:parenscript)
   :serial t
   :components ((:module "src"
                 :serial t
                 :components ((:module "client"
                               :serial t
-                              :components ((:file "client")))
+                              :components ((:file "style")
+                                           (:file "client")))
                              (:module "server"
                               :serial t
                               :components ((:file "server")
