@@ -17,6 +17,8 @@
             (:meta :charset "utf-8")
             ;; declare charset first
             (:title "bow-person")
+            ;; three.js mobile control
+            (:meta :name "viewport" :content "width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0")
             ;; load stylesheet before page
             (:link :type "text/css"
                    :rel "stylesheet"
