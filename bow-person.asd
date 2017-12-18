@@ -15,6 +15,7 @@
                 :components ((:module "client"
                               :serial t
                               :components ((:file "style")
+                                           (:file "script")
                                            (:file "client")))
                              (:module "server"
                               :serial t

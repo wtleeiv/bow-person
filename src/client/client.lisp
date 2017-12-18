@@ -24,6 +24,7 @@
            (:body
             (:script :src "/lib/three.min.js")
             ;; load dependencies first within body
-            (:canvas :id "myCanvas")
+            ;; better to let three.js make it's own canvas
+            ;; (:canvas :id "myCanvas")
             ;; load script after page
             (:script :src "/script.js")))))
