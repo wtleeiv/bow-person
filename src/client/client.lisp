@@ -17,24 +17,24 @@
             (:meta :charset "utf-8")
             ;; declare charset first
             (:title "bow-person")
-            ;; three.js mobile control
+            ;; three.js mobile viewport
             (:meta :name "viewport" :content "width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0")
             ;; load stylesheet before page
             (:link :type "text/css"
                    :rel "stylesheet"
                    :href "/style.css"))
            (:body
+            ;; load dependencies first (within body)
             (:script :src "/lib/three.min.js")
             (:script :src "/lib/controls.js")
-            ;; load dependencies first within body
+            ;; instructions
             (:div :id "blocker"
                   (:div :id "instructions"
                         (:span :style "font-size:300%" "Click to play")
                         (:br)
                         "WASD = Move, SPACE = Jump, MOUSE = Aim, CLICK = Fire"))
+            ;; canvas
             (:div :id "container"
                   (:canvas :id "my-canvas"))
-            ;; better to let three.js make it's own canvas
-            ;; (:canvas :id "myCanvas")
-            ;; load script after page
+            ;; load game script after page elements
             (:script :src "/script.js")))))

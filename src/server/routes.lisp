@@ -21,7 +21,6 @@
 (setf (route *app* "/script.js")
       #'script-js)
 
-;; super easy to server static pages, just return pathname
 (setf (route *app* "/lib/three.min.js")
       #P"../../lib/three.min.js")
 
