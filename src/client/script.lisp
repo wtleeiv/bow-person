@@ -52,7 +52,6 @@
 
       (chain renderer (render scene camera))
 
-      (request-animation-frame animate)
-      )
+      (request-animation-frame animate))
 
     (animate)))
