@@ -27,6 +27,7 @@
             ;; load dependencies first (within body)
             (:script :src "/lib/three.min.js")
             (:script :src "/lib/controls.js")
+            (:script :src "/lib/client-helpers.js")
             ;; instructions
             (:div :id "blocker"
                   (:div :id "instructions"

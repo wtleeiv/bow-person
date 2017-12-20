@@ -12,7 +12,10 @@
   :serial t
   :components ((:module "src"
                 :serial t
-                :components ((:module "client"
+                :components ((:module "core"
+                              :serial t
+                              :components ((:file "client")))
+                             (:module "client"
                               :serial t
                               :components ((:file "style")
                                            (:file "script")
