@@ -18,10 +18,32 @@
    (defvar renderer)
 
    ;; scene-dependent
-   (defvar cube)
 
 
    ;;; function definitions
+
+   (defun cube ()
+     (let ((geometry (new (chain *three* (*box-geometry 1 1 1))))
+           (material (new (chain *three* (*mesh-basic-material (create color 0x00FF00))))))
+       (new (chain *three* (*mesh geometry material)))))
+
+   (defun checkerboard (&optional (segments 8) (square-dim 10))
+     (let* ((geometry (new (chain *three* (*plane-geometry square-dim square-dim segments segments))))
+            (material-even (new (chain *three* (*mesh-basic-material (create color 0xCCCCFC)))))
+            (material-odd (new (chain *three* (*mesh-basic-material (create color 0x444464)))))
+            (materials (list material-even material-odd)))
+       ;; rotate floor to proper orientation
+       (chain geometry (rotate-x (/ (@ *math *pi*) -2)))
+       ;; color squares
+       (dotimes (x segments)
+         (dotimes (y segments)
+           (let* ((i (+ (* segments x) y))
+                  (j (* 2 i))
+                  (index (% (+ x y) 2)))
+             (setf (getprop geometry 'faces j 'material-index) index
+                   (getprop geometry 'faces (+ j 1) 'material-index) index))))
+       ;; return floor obj
+       (new (chain *three* (*mesh geometry (new (chain *three* (*mesh-face-material materials))))))))
 
    ;; initialize state
    (defun init ()
@@ -31,13 +53,13 @@
      (setf clock (new (chain *three* *clock)))
      ;; create camera
      (setf camera (new (chain *three* (*perspective-camera 75 ; FOV (degrees)
-                                                             ;; aspect ratio
-                                                             (/ (@ window inner-width)
-                                                                (@ window inner-height))
-                                                             ;; near
-                                                             0.1
-                                                             ;; far
-                                                             1000))))
+                                                           ;; aspect ratio
+                                                           (/ (@ window inner-width)
+                                                              (@ window inner-height))
+                                                           ;; near
+                                                           0.1
+                                                           ;; far
+                                                           1000))))
      ;; create controls
      (let ((blocker (chain document (get-element-by-id "blocker")))
            (instructions (chain document (get-element-by-id "instructions"))))
@@ -49,12 +71,11 @@
        (setf renderer (new (chain *three* (*web-g-l-renderer (create canvas my-canvas))))))
      ;; set renderer resolution
      (chain renderer (set-size (@ window inner-width) (@ window inner-height)))
-     ;; create cube obj
-     (let ((geometry (new (chain *three* (*box-geometry 1 1 1))))
-           (material (new (chain *three* (*mesh-basic-material (create color 0x00FF00))))))
-       (setf cube (new (chain *three* (*mesh geometry material)))))
-     ;; add cube to scene
-     (chain scene (add cube)))
+
+     ;; scene-specific objects
+     (var floor (checkerboard))
+     (setf (@ floor position y) -1)
+     (chain scene (add floor )))
 
    ;; window resize listener
    (defun on-window-resize ()
@@ -71,8 +92,7 @@
      ;; update view
      (chain controls (animate-camera delta))
      ;; update scene objects
-     (incf (@ cube rotation x) 0.01)
-     (incf (@ cube rotation y) 0.02)
+
      ;; render scene
      (chain renderer (render scene camera))
      ;; animate next frame
